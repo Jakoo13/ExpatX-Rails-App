@@ -53,7 +53,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "Netigo_Rails_App_production"
+  # config.active_job.queue_name_prefix = "ExpatX_Rails_App_production"
 
   config.action_mailer.perform_caching = false
 
