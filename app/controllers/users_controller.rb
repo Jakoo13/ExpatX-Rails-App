@@ -12,6 +12,12 @@ class UsersController < ApplicationController
         render json: @user
     end
 
+    def get_feed_posts
+        @user = User.find(params[:id])
+        @feed_posts = @user.feed_posts
+        render json: @feed_posts, :except =>  [:created_at]
+    end
+    
     private
 
     def find_user

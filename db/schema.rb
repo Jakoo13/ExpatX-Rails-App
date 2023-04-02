@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_02_183841) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_02_215640) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "feed_post_comments", force: :cascade do |t|
+    t.text "comment"
+    t.bigint "feed_post_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feed_post_id"], name: "index_feed_post_comments_on_feed_post_id"
+    t.index ["user_id"], name: "index_feed_post_comments_on_user_id"
+  end
 
   create_table "feed_posts", force: :cascade do |t|
     t.text "content"

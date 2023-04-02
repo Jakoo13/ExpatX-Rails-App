@@ -10,4 +10,5 @@ class User < ApplicationRecord
     validates :encrypted_password,  length: {minimum: 8}, allow_blank: false
 
     has_many :feed_posts
+    has_many :feed_post_comments
 end

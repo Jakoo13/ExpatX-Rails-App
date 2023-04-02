@@ -6,7 +6,7 @@ class FeedPostsController < ApplicationController
     def index
         @feed_posts = FeedPost.all
 
-        render json: @feed_posts
+        render json: @feed_posts, :except =>  [:created_at]
     end
 
     # GET /feed_posts/1
@@ -37,7 +37,30 @@ class FeedPostsController < ApplicationController
 
     # DELETE /feed_posts/1
     def destroy
-        @feed_post.destroy
+        @feed_post = FeedPost.find(params[:id])
+        if @feed_post.destroy
+            render json: {message: "Post deleted"}
+        else
+            render json: {message: "Post not deleted"}
+        end
+    end
+
+    def get_comments
+        @feed_post = FeedPost.find(params[:id])
+        @feed_post_comments = @feed_post.feed_post_comments
+        render json: @feed_post_comments
+    end 
+
+    # POST /feed_posts/1/comments
+    def add_comment
+        @feed_post = FeedPost.find(params[:id])
+        @feed_post_comment = FeedPostComment.new(feed_post_comment_params)
+        @feed_post_comment.feed_post = @feed_post
+        if @feed_post_comment.save
+            render json: @feed_post_comment, status: :created, location: @feed_post_comment,  :except =>  [:updated_at]
+        else
+            render json: @feed_post_comment.errors, status: :unprocessable_entity
+        end
     end
 
     private 
@@ -45,4 +68,5 @@ class FeedPostsController < ApplicationController
     def feed_post_params
         params.require(:feed_post).permit(:content, :user_id)
     end
+
 end
