@@ -17,5 +17,5 @@ Rails.application.routes.draw do
   }
 
   # Get Feed Posts For User
-  get '/users/:id/feed_posts', to: 'users#get_feed_posts'
+  get '/users/:id/feed-posts', to: 'users#get_feed_posts'
 end
