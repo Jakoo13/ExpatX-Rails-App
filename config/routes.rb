@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users, only: %i[index show]
-  resources :feed_posts
+  resources :feed_posts, :path => "feed-posts"
   resources :feed_post_comments, only: %i[create]
 
   devise_for :users,

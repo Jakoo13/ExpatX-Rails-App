@@ -6,7 +6,7 @@ class FeedPostsController < ApplicationController
     def index
         @feed_posts = FeedPost.all
 
-        render json: @feed_posts, :except =>  [:created_at]
+        render json: @feed_posts, :except =>  [:updated_at]
     end
 
     # GET /feed_posts/1

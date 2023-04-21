@@ -5,6 +5,9 @@ class FeedPost < ApplicationRecord
     has_many :feed_post_comments 
 
     def as_json(options={})
-        super(options).merge({comments: self.feed_post_comments})
+        super(options).merge({
+            # The extra as_json removes updated_at from the json
+            comments: self.feed_post_comments().as_json(options)
+        })
     end
 end
