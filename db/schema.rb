@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_02_215640) do
   create_table "feed_posts", force: :cascade do |t|
     t.text "content"
     t.string "language"
+    t.integer "likes", default: 0
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

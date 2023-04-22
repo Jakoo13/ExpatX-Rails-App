@@ -6,7 +6,7 @@ class FeedPostsController < ApplicationController
     def index
         @feed_posts = FeedPost.all
 
-        render json: @feed_posts, :except =>  [:updated_at]
+        render json: @feed_posts, :except =>  [:updated_at, :user_id]
     end
 
     # GET /feed_posts/1
@@ -66,7 +66,7 @@ class FeedPostsController < ApplicationController
     private 
 
     def feed_post_params
-        params.require(:feed_post).permit(:content, :language, :user_id)
+        params.require(:feed_post).permit(:content, :language, :user_id, :likes)
     end
 
 end
