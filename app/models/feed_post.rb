@@ -9,6 +9,11 @@ class FeedPost < ApplicationRecord
         super(options).merge({
             # The extra as_json removes updated_at from the json
             comments: self.feed_post_comments().as_json(options)
+          
+        })
+        super(options).merge({
+            user: self.user().as_json(options)
+          
         })
     end
 end
