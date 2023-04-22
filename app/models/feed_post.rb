@@ -1,6 +1,7 @@
 class FeedPost < ApplicationRecord
     belongs_to :user, optional: false
     validates :content, length: {minimum: 1, maximum: 250}, allow_blank: false
+    validates :language, length: {minimum: 1, maximum: 30}, allow_blank: false, inclusion: { in: %w(English Spanish French German Italian Portuguese Russian Chinese Japanese Korean Arabic Hindi Bengali Turkish Vietnamese), message: "%{value} is not a valid language" }
 
     has_many :feed_post_comments 
 

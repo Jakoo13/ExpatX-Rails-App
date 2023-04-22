@@ -66,7 +66,7 @@ class FeedPostsController < ApplicationController
     private 
 
     def feed_post_params
-        params.require(:feed_post).permit(:content, :user_id)
+        params.require(:feed_post).permit(:content, :language, :user_id)
     end
 
 end
