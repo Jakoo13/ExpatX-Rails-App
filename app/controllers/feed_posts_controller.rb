@@ -4,8 +4,10 @@ class FeedPostsController < ApplicationController
 
     # GET /feed_posts
     def index
-        @feed_posts = FeedPost.all
 
+        # Showing most recent first in list
+        @feed_posts = FeedPost.order('created_at DESC')
+   
         render json: @feed_posts, :except =>  [:updated_at, :user_id]
     end
 
