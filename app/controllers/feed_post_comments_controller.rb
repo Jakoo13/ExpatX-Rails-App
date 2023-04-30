@@ -1,4 +1,5 @@
 class FeedPostCommentsController < ApplicationController
+    before_action :authenticate_user!
 
     # POST /feed_post_comments
     # required user_id, comment, feed_post_id
