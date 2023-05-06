@@ -19,7 +19,9 @@ class FeedPostLikesController < ApplicationController
     @feed_post_like = FeedPostLike.new(feed_post_like_params)
 
     if @feed_post_like.save
-      render json: @feed_post_like, status: :created, location: @feed_post_like
+      # get updated feed post
+      @feed_post = FeedPost.find(@feed_post_like.feed_post_id)
+      render json: @feed_post, status: :created, location: @feed_post_like
     else
       render json: @feed_post_like.errors, status: :unprocessable_entity
     end
@@ -34,10 +36,26 @@ class FeedPostLikesController < ApplicationController
     end
   end
 
-  # DELETE /feed_post_likes/1
-  def destroy
+
+  # # DELETE /feed_post_likes/1
+  # def destroy
+  #   @feed_post_like.destroy
+  # end
+
+  # DELETE /feed_post_likes
+  # Delete feed post like based on user_id and feed_post_id
+  def unlike
+    @feed_post_like = FeedPostLike.where(user_id: params[:user_id], feed_post_id: params[:feed_post_id]).first
+    puts "USER ID: #{params[:user_id]} - FEED POST ID #{params[:feed_post_id]}"
+    if @feed_post_like.nil?
+      render json: {message: "Couldn't find like"}
+      return
+    end
+
     @feed_post_like.destroy
+    render json: {message: "Post unliked"}
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

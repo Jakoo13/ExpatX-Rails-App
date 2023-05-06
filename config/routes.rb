@@ -20,10 +20,7 @@ Rails.application.routes.draw do
   # Get Feed Posts For User
   get '/users/:id/feed-posts', to: 'users#get_feed_posts'
 
-  # like a post
-  post '/feed-posts/:id/like', to: 'feed_posts#like'
-
-  # Unlike a post
-  post '/feed-posts/:id/unlike', to: 'feed_posts#unlike'
+  # Unlike a feed post
+  delete '/unlike', to: 'feed_post_likes#unlike'
   
 end

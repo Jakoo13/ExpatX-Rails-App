@@ -47,24 +47,6 @@ class FeedPostsController < ApplicationController
         end
     end
 
-    def get_comments
-        @feed_post = FeedPost.find(params[:id])
-        @feed_post_comments = @feed_post.feed_post_comments
-        render json: @feed_post_comments
-    end 
-
-    # POST /feed_posts/1/comments
-    def add_comment
-        @feed_post = FeedPost.find(params[:id])
-        @feed_post_comment = FeedPostComment.new(feed_post_comment_params)
-        @feed_post_comment.feed_post = @feed_post
-        if @feed_post_comment.save
-            render json: @feed_post_comment, status: :created, location: @feed_post_comment,  :except =>  [:updated_at]
-        else
-            render json: @feed_post_comment.errors, status: :unprocessable_entity
-        end
-    end
-
     private 
 
     def feed_post_params
