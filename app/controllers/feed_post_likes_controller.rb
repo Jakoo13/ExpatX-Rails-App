@@ -46,14 +46,18 @@ class FeedPostLikesController < ApplicationController
   # Delete feed post like based on user_id and feed_post_id
   def unlike
     @feed_post_like = FeedPostLike.where(user_id: params[:user_id], feed_post_id: params[:feed_post_id]).first
-    puts "USER ID: #{params[:user_id]} - FEED POST ID #{params[:feed_post_id]}"
+
     if @feed_post_like.nil?
       render json: {message: "Couldn't find like"}
       return
     end
 
-    @feed_post_like.destroy
-    render json: {message: "Post unliked"}
+    if @feed_post_like.destroy
+      @feed_post = FeedPost.find(@feed_post_like.feed_post_id)
+      render json: @feed_post, status: :created, location: @feed_post_like
+    else
+      render json: @feed_post_like.errors, status: :unprocessable_entity
+    end
   end
 
 
